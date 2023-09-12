@@ -64,14 +64,47 @@ Lista leerArchivo(char nombre_archivo[50]){
 }
 
 void imprimirLista(Lista lista) {
-    Lista aux = lista;
-    if (aux == NULL) {
+    if (lista == NULL) {
         printf("Lista: ---");
         exit(EXIT_FAILURE);
     }
     printf("\nLista:");
-    while (aux->sig != NULL) {
-        printf(" %d", aux->info);
-        aux = aux->sig;
+    while (lista->sig != NULL) {
+        printf(" %d", lista->info);
+        lista = lista->sig;
     }
+}
+
+int largoLista(Lista lista) {
+    int count = 0;
+    if (lista == NULL) {
+        return 0;
+    }
+    while (lista->sig != NULL) {
+        count++;
+        lista = lista->sig;
+    }
+    return count;
+}
+
+int sumaLista(Lista lista) {
+    if (lista == NULL) {
+        return 0;
+    }
+    int suma = 0;
+    while (lista->sig != NULL) {
+        suma += lista->info;
+        lista = lista->sig;
+    }
+    return suma;
+}
+
+Lista borraLista(Lista lista) {
+    Lista aux = lista;
+    while (aux->sig != NULL) {
+        lista = lista->sig;
+        free(aux);
+        aux = lista;
+    }
+    return NULL;
 }

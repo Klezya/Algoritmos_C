@@ -12,15 +12,15 @@ enteros que posee el archivo en el mismo orden en una lista que luego retorna.
 - void imprimeLista(Lista L): recibe una lista e imprime los números que almacena separados
 por un espacio. Si la lista estuviese vacía, debe imprimir un “-”.
 
-------------------------------------------------------------------------------------------------------------
-Working on:
+- int largoLista(Lista L): recibe una lista y retorna la cantidad de elementos que almacena.
 
 - Lista insertaFinal(Lista L, int dato): recibe una lista L y un entero dato, y genera un
 nuevo nodo que almacena a dato, e inserta el nuevo nodo al final de la lista L, retornándola.
 
-- int largoLista(Lista L): recibe una lista y retorna la cantidad de elementos que almacena.
-
 - int sumaLista(Lista L): recibe una lista y retorna la suma de todos los elementos que almacena.
+
+------------------------------------------------------------------------------------------------------------
+Working on:
 
 
 ------------------------------------------------------------------------------------------------------------
@@ -36,7 +36,6 @@ con sus valores ordenados. Retorna la nueva lista.
 - int menorLista(Lista L): recibe una lista y retorna el menor valor que almacena.
 
 - int mayorLista(Lista L): recibe una lista y retorna el mayor valor que almacena.
-
 
 - Lista invierteLista(Lista L): recibe una lista L y, a partir de ella, genera una nueva lista pero
 con sus valores invertidos. Retorna la nueva lista.
