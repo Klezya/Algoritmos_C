@@ -108,3 +108,31 @@ Lista borraLista(Lista lista) {
     }
     return NULL;
 }
+
+int menorLista(Lista lista) {
+    int menor = lista->info;
+    if (lista == NULL) {
+        return 0;
+    }
+    while (lista->sig != NULL) {
+        if (lista->info > lista->sig->info) {
+            menor = lista->sig->info;
+        }
+        lista = lista->sig;
+    }
+    return menor;
+}
+
+int mayorLista(Lista lista) {
+    int mayor = lista->info;
+    if (lista == NULL) {
+        return 0;
+    }
+    while (lista->sig != NULL) {
+        if (lista->info < lista->sig->info) {
+            mayor = lista->sig->info;
+        }
+        lista = lista->sig;
+    }
+    return mayor;
+}
