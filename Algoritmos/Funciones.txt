@@ -22,12 +22,13 @@ nuevo nodo que almacena a dato, e inserta el nuevo nodo al final de la lista L, 
 - Lista borraLista(Lista L): recibe una lista y libera la memoria de cada nodo que posee,
 retornando finalmente NULL.
 
-------------------------------------------------------------------------------------------------------------
-Working on:
-
 - int menorLista(Lista L): recibe una lista y retorna el menor valor que almacena.
 
 - int mayorLista(Lista L): recibe una lista y retorna el mayor valor que almacena.
+
+------------------------------------------------------------------------------------------------------------
+Working on:
+
 
 
 ------------------------------------------------------------------------------------------------------------
