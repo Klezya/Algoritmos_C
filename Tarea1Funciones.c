@@ -101,7 +101,7 @@ int sumaLista(Lista lista) {
 
 Lista borraLista(Lista lista) {
     Lista aux = lista;
-    while (aux->sig != NULL) {
+    while (lista->sig != NULL) {
         lista = lista->sig;
         free(aux);
         aux = lista;
@@ -135,4 +135,9 @@ int mayorLista(Lista lista) {
         lista = lista->sig;
     }
     return mayor;
+}
+
+Lista invertirLista(Lista lista) {
+    Lista temp = NULL;
+
 }
