@@ -14,7 +14,7 @@ int main(){
     printf("La suma de la lista es: %d\n", sumaLista(lista1));
     printf("El menor de la lista es: %d\n", menorLista(lista1));
     printf("El mayor de la lista es: %d\n", mayorLista(lista1));
-    lista1 = borraLista(lista1);
-    imprimirLista(lista1);
+    Lista lista2 = invertirLista(lista1);
+    imprimirLista(lista2);
     return 0;
 }

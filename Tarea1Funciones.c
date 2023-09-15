@@ -138,6 +138,14 @@ int mayorLista(Lista lista) {
 }
 
 Lista invertirLista(Lista lista) {
+    if (lista == NULL || lista->sig == NULL) {
+        printf("Lista vacia o de un elemento\n");
+        return NULL;
+    }
     Lista temp = NULL;
-
+    while (lista->sig) {
+        temp = insertarInicio(temp, lista->info);
+        lista = lista->sig;
+    }
+    return temp;
 }

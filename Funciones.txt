@@ -26,15 +26,12 @@ retornando finalmente NULL.
 
 - int mayorLista(Lista L): recibe una lista y retorna el mayor valor que almacena.
 
-------------------------------------------------------------------------------------------------------------
-Working on:
-
 - Lista invierteLista(Lista L): recibe una lista L y, a partir de ella, genera una nueva lista pero
 con sus valores invertidos. Retorna la nueva lista.
 
 
 ------------------------------------------------------------------------------------------------------------
-Pendientes:
+Working on:
 
 - Lista insertaOrdenadoLista(Lista L, int dato): recibe una lista L y un entero dato, y
 genera un nuevo nodo que almacena a dato, e inserta el nuevo nodo en forma ordenada en la lista L,
@@ -42,6 +39,10 @@ retornándola.
 
 - Lista ordenaLista(Lista L): recibe una lista L y, a partir de ella, genera una nueva lista pero
 con sus valores ordenados. Retorna la nueva lista.
+
+------------------------------------------------------------------------------------------------------------
+Pendientes:
+
 
 
 
