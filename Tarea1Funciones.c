@@ -58,20 +58,17 @@ Lista leerArchivo(char nombre_archivo[50]){
         fscanf(archivo, "%d", &dato);
         temp = insertarFinal(temp, dato);
     }
-    fscanf(archivo, "%d", &dato);
-    temp = insertarFinal(temp, dato);
     fclose(archivo);
     return temp;
 }
 
 void imprimirLista(Lista lista) {
     if (lista == NULL) {
-        printf("Lista: ---");
+        printf(" \n/// lista vacia ///\n ");
         exit(EXIT_FAILURE);
     }
-    printf("\nLista:");
-    while (lista->sig != NULL) {
-        printf(" %d", lista->info);
+    while (lista != NULL) {
+        printf("%d ", lista->info);
         lista = lista->sig;
     }
 }
@@ -140,11 +137,11 @@ int mayorLista(Lista lista) {
 
 Lista invertirLista(Lista lista) {
     if (lista == NULL || lista->sig == NULL) {
-        printf("Lista vacia o de un elemento\n");
-        return NULL;
+        printf("Lista vacia o de un elemento");
+        return lista;
     }
     Lista temp = NULL;
-    while (lista->sig) {
+    while (lista->sig != NULL) {
         temp = insertarInicio(temp, lista->info);
         lista = lista->sig;
     }
@@ -170,7 +167,7 @@ Lista insertarOrdenado(Lista lista, int dato) {
     }
 }
 
-Lista ordenaLista(Lista lista) {
+Lista ordenarLista(Lista lista) {
     Lista inicio = lista;
     while (inicio != NULL) {
         Lista minimo = inicio;
@@ -204,16 +201,18 @@ Lista unionLista(Lista lista1, Lista lista2) {
     Lista temp = lista1;
     Lista aux = lista2;
     while (aux->sig != NULL) {
-        if (perteneceLista(temp, aux->info)) {
+        if (perteneceLista(temp, aux->info) == false) {
             temp = insertarFinal(temp, aux->info);
         }
         aux = aux->sig;
-    return temp;
     }
+    return temp;
 }
 
 Lista interseccionLista(Lista lista1, Lista lista2) {
+    return NULL;
 }
 
 Lista restaLista(Lista lista1, Lista lista2) {
+    return NULL;
 }
