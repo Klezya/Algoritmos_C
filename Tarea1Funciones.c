@@ -96,11 +96,10 @@ int sumaLista(Lista lista) {
 }
 
 Lista borraLista(Lista lista) {
-    Lista aux = lista;
-    while (lista->sig != NULL) {
+    while (lista != NULL) {
+        Lista aux = lista;
         lista = lista->sig;
         free(aux);
-        aux = lista;
     }
     return NULL;
 }
