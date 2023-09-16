@@ -26,15 +26,8 @@ retornando finalmente NULL.
 
 - int mayorLista(Lista L): recibe una lista y retorna el mayor valor que almacena.
 
-------------------------------------------------------------------------------------------------------------
-Working on:
-
 - Lista invierteLista(Lista L): recibe una lista L y, a partir de ella, genera una nueva lista pero
 con sus valores invertidos. Retorna la nueva lista.
-
-
-------------------------------------------------------------------------------------------------------------
-Pendientes:
 
 - Lista insertaOrdenadoLista(Lista L, int dato): recibe una lista L y un entero dato, y
 genera un nuevo nodo que almacena a dato, e inserta el nuevo nodo en forma ordenada en la lista L,
@@ -42,8 +35,6 @@ retornándola.
 
 - Lista ordenaLista(Lista L): recibe una lista L y, a partir de ella, genera una nueva lista pero
 con sus valores ordenados. Retorna la nueva lista.
-
-
 
 - bool perteneceLista(Lista L, int dato): recibe una lista L y un dato entero, y retorna
 true si el dato está almacenado en L, y false si no lo está.
@@ -56,4 +47,15 @@ una nueva lista con los elementos en común de ambas listas. Retorna la nueva li
 
 - Lista restaLista(Lista L, Lista M): recibe dos listas L y M y, a partir de ellas, genera una
 nueva lista con los elementos que pertenecen a L pero que no pertenecen a M. Retorna la nueva lista.
+
+------------------------------------------------------------------------------------------------------------
+Testing:
+
+
+
+------------------------------------------------------------------------------------------------------------
+Pendientes:
+
+
+
 

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 //Definimo la estructura del nodo y la lista
 struct Nodo {
@@ -53,24 +54,19 @@ Lista leerArchivo(char nombre_archivo[50]){
         printf("Error al leer el archivo: %s\n", nombre_archivo);
         exit(EXIT_FAILURE);
     }
-    while (feof(archivo) == 0) {
-        fscanf(archivo, "%d", &dato);
+    while (fscanf(archivo, "%d", &dato) == 1) {
         temp = insertarFinal(temp, dato);
     }
-    fscanf(archivo, "%d", &dato);
-    temp = insertarFinal(temp, dato);
     fclose(archivo);
     return temp;
 }
 
 void imprimirLista(Lista lista) {
     if (lista == NULL) {
-        printf("Lista: ---");
-        exit(EXIT_FAILURE);
+        printf(" \n/// lista vacia ///\n ");
     }
-    printf("\nLista:");
-    while (lista->sig != NULL) {
-        printf(" %d", lista->info);
+    while (lista != NULL) {
+        printf("%d ", lista->info);
         lista = lista->sig;
     }
 }
@@ -80,7 +76,7 @@ int largoLista(Lista lista) {
     if (lista == NULL) {
         return 0;
     }
-    while (lista->sig != NULL) {
+    while (lista != NULL) {
         count++;
         lista = lista->sig;
     }
@@ -100,11 +96,10 @@ int sumaLista(Lista lista) {
 }
 
 Lista borraLista(Lista lista) {
-    Lista aux = lista;
-    while (lista->sig != NULL) {
+    while (lista != NULL) {
+        Lista aux = lista;
         lista = lista->sig;
         free(aux);
-        aux = lista;
     }
     return NULL;
 }
@@ -138,6 +133,107 @@ int mayorLista(Lista lista) {
 }
 
 Lista invertirLista(Lista lista) {
+    if (lista == NULL || lista->sig == NULL) {
+        printf("Lista vacia o de un elemento");
+        return lista;
+    }
     Lista temp = NULL;
+    while (lista != NULL) {
+        temp = insertarInicio(temp, lista->info);
+        lista = lista->sig;
+    }
+    return temp;
+}
 
+Lista insertarOrdenado(Lista lista, int dato) {
+    Lista temp = creaNodo(dato);
+    if (lista == NULL) {
+        lista = temp;
+        return lista;
+    } else {
+        Lista aux = lista;
+        while (aux->sig!= NULL && temp->info > aux->info) { 
+            aux = aux->sig;
+        }
+        int i = temp->info; //Proceso de intercambio de datos
+        temp->sig = aux->sig;
+        aux->sig = temp;
+        temp->info = aux->info;
+        aux->info = i;
+        return lista;
+    }
+}
+
+Lista ordenarLista(Lista lista) {
+    if (lista == NULL || lista->sig == NULL) {
+        return lista; 
+    }
+    Lista actual = lista;
+    while (actual != NULL) {
+        Lista minimo = actual;
+        Lista siguiente = actual->sig;
+        while (siguiente != NULL) {
+            if (siguiente->info < minimo->info) {
+                minimo = siguiente;
+            }
+            siguiente = siguiente->sig;
+        }
+        int temp = actual->info;
+        actual->info = minimo->info;
+        minimo->info = temp;
+        actual = actual->sig;
+    }
+    return lista;
+}
+
+bool perteneceLista(Lista lista, int dato) {
+    Lista aux = lista;
+    while (aux != NULL) {
+        if (aux->info == dato) {
+            return true;
+        }
+        aux = aux->sig;
+    }
+    return false;
+}
+
+Lista unionLista(Lista lista1, Lista lista2) {
+    Lista nueva = NULL;
+    Lista aux1 = lista1;
+    Lista aux2 = lista2;
+    while (aux1 != NULL) {
+        nueva = insertarInicio(nueva,aux1->info);   
+        aux1 = aux1->sig;
+    }
+    while (aux2 != NULL) {
+        if (perteneceLista(nueva,aux2->info) == false) {
+            nueva = insertarInicio(nueva,aux2->info);
+        }
+        aux2 = aux2->sig;
+    }
+    return nueva;
+}
+
+Lista interseccionLista(Lista lista1, Lista lista2) {
+    Lista nueva = NULL;
+    Lista aux1 = lista1;
+    while (aux1 != NULL) {
+        if (perteneceLista(lista2, aux1->info) == true && perteneceLista(nueva, aux1->info) == false) {
+            nueva = insertarInicio(nueva, aux1->info);
+        }
+        aux1 = aux1->sig;
+    }
+    return nueva;
+}
+
+Lista restaLista(Lista lista1, Lista lista2) {
+    Lista nueva = NULL;
+    Lista aux1 = lista1;
+    while (aux1!= NULL) {
+        if (perteneceLista(lista2, aux1->info) == false && perteneceLista(nueva, aux1->info) == false) {
+            nueva = insertarInicio(nueva, aux1->info);
+        }
+        aux1 = aux1->sig;
+    }
+    return nueva;
 }
