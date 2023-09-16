@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 //Definimo la estructura del nodo y la lista
 struct Nodo {
@@ -148,4 +149,71 @@ Lista invertirLista(Lista lista) {
         lista = lista->sig;
     }
     return temp;
+}
+
+Lista insertarOrdenado(Lista lista, int dato) {
+    Lista temp = creaNodo(dato);
+    if (lista == NULL) {
+        lista = temp;
+        return lista;
+    } else {
+        Lista aux = lista;
+        while (aux->sig!= NULL && temp->info > aux->info) { //Finalmente, ganaron los contadores
+            aux = aux->sig;
+        }
+        int i = temp->info; //Proceso de intercambio de datos
+        temp->sig = aux->sig;
+        aux->sig = temp;
+        temp->info = aux->info;
+        aux->info = i;
+        return lista;
+    }
+}
+
+Lista ordenaLista(Lista lista) {
+    Lista inicio = lista;
+    while (inicio != NULL) {
+        Lista minimo = inicio;
+        Lista actual = inicio->sig;
+        while (actual != NULL) {
+            if (actual->info < minimo->info) {
+                minimo = actual;
+            }
+            actual = actual->sig;
+        }
+        int temp = inicio->info;
+        inicio->info = minimo->info;
+        minimo->info = temp;
+        inicio = inicio->sig;
+    }
+    return lista;
+}
+
+bool perteneceLista(Lista lista, int dato) {
+    Lista aux = lista;
+    while (aux!= NULL) {
+        if (aux->info == dato) {
+            return true;
+        }
+        aux = aux->sig;
+    }
+    return false;
+}
+
+Lista unionLista(Lista lista1, Lista lista2) {
+    Lista temp = lista1;
+    Lista aux = lista2;
+    while (aux->sig != NULL) {
+        if (perteneceLista(temp, aux->info)) {
+            temp = insertarFinal(temp, aux->info);
+        }
+        aux = aux->sig;
+    return temp;
+    }
+}
+
+Lista interseccionLista(Lista lista1, Lista lista2) {
+}
+
+Lista restaLista(Lista lista1, Lista lista2) {
 }
