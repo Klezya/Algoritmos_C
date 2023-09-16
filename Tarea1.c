@@ -35,8 +35,6 @@ int main(){
     printf("\n\nInion listas: "); imprimirLista(L_union);
     printf("\nUnion ordenada: "); L_union = ordenarLista(L_union); imprimirLista(L_union);
     
-    printf("\n");imprimirLista(lista1);printf("\n"); imprimirLista(lista2);
-
     Lista L_intersec = interseccionLista(lista1,lista2);
     printf("\n\nInterseccion listas: "); imprimirLista(L_intersec);
     printf("\nInterseccion ordenada: "); L_intersec = ordenarLista(L_intersec); imprimirLista(L_intersec);
