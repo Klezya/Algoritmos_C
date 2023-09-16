@@ -203,9 +203,7 @@ Lista unionLista(Lista lista1, Lista lista2) {
     Lista aux1 = lista1;
     Lista aux2 = lista2;
     while (aux1 != NULL) {
-        if (perteneceLista(nueva,aux1->info) == false) {
-            nueva = insertarInicio(nueva,aux1->info);   
-        }
+        nueva = insertarInicio(nueva,aux1->info);   
         aux1 = aux1->sig;
     }
     while (aux2 != NULL) {
@@ -230,5 +228,13 @@ Lista interseccionLista(Lista lista1, Lista lista2) {
 }
 
 Lista restaLista(Lista lista1, Lista lista2) {
-    return NULL;
+    Lista nueva = NULL;
+    Lista aux1 = lista1;
+    while (aux1!= NULL) {
+        if (perteneceLista(lista2, aux1->info) == false && perteneceLista(nueva, aux1->info) == false) {
+            nueva = insertarInicio(nueva, aux1->info);
+        }
+        aux1 = aux1->sig;
+    }
+    return nueva;
 }

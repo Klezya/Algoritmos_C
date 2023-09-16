@@ -36,9 +36,6 @@ retornándola.
 - Lista ordenaLista(Lista L): recibe una lista L y, a partir de ella, genera una nueva lista pero
 con sus valores ordenados. Retorna la nueva lista.
 
-------------------------------------------------------------------------------------------------------------
-Testing:
-
 - bool perteneceLista(Lista L, int dato): recibe una lista L y un dato entero, y retorna
 true si el dato está almacenado en L, y false si no lo está.
 
@@ -47,6 +44,11 @@ lista con los elementos de ambas listas, pero sin elementos repetidos. Retorna l
 
 - Lista interseccionLista(Lista L, Lista M): recibe dos listas y, a partir de ellas, genera
 una nueva lista con los elementos en común de ambas listas. Retorna la nueva lista.
+
+
+------------------------------------------------------------------------------------------------------------
+Testing:
+
 
 - Lista restaLista(Lista L, Lista M): recibe dos listas L y M y, a partir de ellas, genera una
 nueva lista con los elementos que pertenecen a L pero que no pertenecen a M. Retorna la nueva lista.

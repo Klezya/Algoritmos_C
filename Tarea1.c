@@ -41,7 +41,7 @@ int main(){
     printf("\n\nInterseccion listas: "); imprimirLista(L_intersec);
     printf("\nInterseccion ordenada: "); L_intersec = ordenarLista(L_intersec); imprimirLista(L_intersec);
     Lista L_resta = restaLista(lista1,lista2);
-    printf("\n\nResta listas: "); imprimirLista(L_resta);
+    printf("\n\nResta listas1: "); imprimirLista(L_resta);
     printf("\nResta ordenada: "); L_resta = ordenarLista(L_resta); imprimirLista(L_resta);
     return 0;
 }
