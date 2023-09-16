@@ -31,14 +31,17 @@ int main(){
     printf("\nLista invertida: "); lista2 = invertirLista(lista2); imprimirLista(lista2);
     printf("\nLista ordenada: "); lista2 = ordenarLista(lista2); imprimirLista(lista2);
 
-    Lista listaunida = unionLista(lista1,lista2);
-    printf("\n\nInion listas: "); imprimirLista(listaunida);
-    printf("\nUnion ordenada: "); listaunida = ordenarLista(listaunida); imprimirLista(listaunida);
-    listaunida = interseccionLista(lista1,lista2);
-    printf("\n\nInterseccion listas: "); imprimirLista(listaunida);
-    printf("\nInterseccion ordenada: "); listaunida = ordenarLista(listaunida); imprimirLista(listaunida);
-    listaunida = restaLista(lista1,lista2);
-    printf("\n\nResta listas: "); imprimirLista(listaunida);
-    printf("\nResta ordenada: "); listaunida = ordenarLista(listaunida); imprimirLista(listaunida);
+    Lista L_union = unionLista(lista1,lista2);
+    printf("\n\nInion listas: "); imprimirLista(L_union);
+    printf("\nUnion ordenada: "); L_union = ordenarLista(L_union); imprimirLista(L_union);
+    
+    printf("\n");imprimirLista(lista1);printf("\n"); imprimirLista(lista2);
 
+    Lista L_intersec = interseccionLista(lista1,lista2);
+    printf("\n\nInterseccion listas: "); imprimirLista(L_intersec);
+    printf("\nInterseccion ordenada: "); L_intersec = ordenarLista(L_intersec); imprimirLista(L_intersec);
+    Lista L_resta = restaLista(lista1,lista2);
+    printf("\n\nResta listas: "); imprimirLista(L_resta);
+    printf("\nResta ordenada: "); L_resta = ordenarLista(L_resta); imprimirLista(L_resta);
+    return 0;
 }

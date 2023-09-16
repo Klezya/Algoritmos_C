@@ -54,8 +54,7 @@ Lista leerArchivo(char nombre_archivo[50]){
         printf("Error al leer el archivo: %s\n", nombre_archivo);
         exit(EXIT_FAILURE);
     }
-    while (feof(archivo) == 0) {
-        fscanf(archivo, "%d", &dato);
+    while (fscanf(archivo, "%d", &dato) == 1) {
         temp = insertarFinal(temp, dato);
     }
     fclose(archivo);
@@ -65,7 +64,6 @@ Lista leerArchivo(char nombre_archivo[50]){
 void imprimirLista(Lista lista) {
     if (lista == NULL) {
         printf(" \n/// lista vacia ///\n ");
-        exit(EXIT_FAILURE);
     }
     while (lista != NULL) {
         printf("%d ", lista->info);
@@ -78,7 +76,7 @@ int largoLista(Lista lista) {
     if (lista == NULL) {
         return 0;
     }
-    while (lista->sig != NULL) {
+    while (lista != NULL) {
         count++;
         lista = lista->sig;
     }
@@ -141,7 +139,7 @@ Lista invertirLista(Lista lista) {
         return lista;
     }
     Lista temp = NULL;
-    while (lista->sig != NULL) {
+    while (lista != NULL) {
         temp = insertarInicio(temp, lista->info);
         lista = lista->sig;
     }
@@ -155,7 +153,7 @@ Lista insertarOrdenado(Lista lista, int dato) {
         return lista;
     } else {
         Lista aux = lista;
-        while (aux->sig!= NULL && temp->info > aux->info) { //Finalmente, ganaron los contadores
+        while (aux->sig!= NULL && temp->info > aux->info) { 
             aux = aux->sig;
         }
         int i = temp->info; //Proceso de intercambio de datos
@@ -168,27 +166,30 @@ Lista insertarOrdenado(Lista lista, int dato) {
 }
 
 Lista ordenarLista(Lista lista) {
-    Lista inicio = lista;
-    while (inicio != NULL) {
-        Lista minimo = inicio;
-        Lista actual = inicio->sig;
-        while (actual != NULL) {
-            if (actual->info < minimo->info) {
-                minimo = actual;
+    if (lista == NULL || lista->sig == NULL) {
+        return lista; 
+    }
+    Lista actual = lista;
+    while (actual != NULL) {
+        Lista minimo = actual;
+        Lista siguiente = actual->sig;
+        while (siguiente != NULL) {
+            if (siguiente->info < minimo->info) {
+                minimo = siguiente;
             }
-            actual = actual->sig;
+            siguiente = siguiente->sig;
         }
-        int temp = inicio->info;
-        inicio->info = minimo->info;
+        int temp = actual->info;
+        actual->info = minimo->info;
         minimo->info = temp;
-        inicio = inicio->sig;
+        actual = actual->sig;
     }
     return lista;
 }
 
 bool perteneceLista(Lista lista, int dato) {
     Lista aux = lista;
-    while (aux!= NULL) {
+    while (aux != NULL) {
         if (aux->info == dato) {
             return true;
         }
@@ -198,19 +199,34 @@ bool perteneceLista(Lista lista, int dato) {
 }
 
 Lista unionLista(Lista lista1, Lista lista2) {
-    Lista temp = lista1;
-    Lista aux = lista2;
-    while (aux->sig != NULL) {
-        if (perteneceLista(temp, aux->info) == false) {
-            temp = insertarFinal(temp, aux->info);
+    Lista nueva = NULL;
+    Lista aux1 = lista1;
+    Lista aux2 = lista2;
+    while (aux1 != NULL) {
+        if (perteneceLista(nueva,aux1->info) == false) {
+            nueva = insertarInicio(nueva,aux1->info);   
         }
-        aux = aux->sig;
+        aux1 = aux1->sig;
     }
-    return temp;
+    while (aux2 != NULL) {
+        if (perteneceLista(nueva,aux2->info) == false) {
+            nueva = insertarInicio(nueva,aux2->info);
+        }
+        aux2 = aux2->sig;
+    }
+    return nueva;
 }
 
 Lista interseccionLista(Lista lista1, Lista lista2) {
-    return NULL;
+    Lista nueva = NULL;
+    Lista aux1 = lista1;
+    while (aux1 != NULL) {
+        if (perteneceLista(lista2, aux1->info) == true && perteneceLista(nueva, aux1->info) == false) {
+            nueva = insertarInicio(nueva, aux1->info);
+        }
+        aux1 = aux1->sig;
+    }
+    return nueva;
 }
 
 Lista restaLista(Lista lista1, Lista lista2) {
