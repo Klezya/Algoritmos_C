@@ -88,7 +88,7 @@ int sumaLista(Lista lista) {
         return 0;
     }
     int suma = 0;
-    while (lista->sig != NULL) {
+    while (lista != NULL) {
         suma += lista->info;
         lista = lista->sig;
     }
