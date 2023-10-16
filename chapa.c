@@ -1,24 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
-struct nodo {
+struct Nodo {
     int info;
-    struct nodo *sig;
+    struct Nodo *sig;
 };
-typedef struct nodo tNodo;
-typedef tNodo *Lista;
+typedef struct Nodo Nodo;
+typedef Nodo *Lista;
 
-Lista crearNodo(int n){
-    Lista nodo = (Lista)malloc(sizeof(tNodo));
-    nodo->info = n;
+Lista crearNodo(int num){
+    Lista nodo = (Lista)malloc(sizeof(Nodo));
+    nodo->info = num;
     nodo->sig = NULL;
     return nodo;
 }
 
-Lista insertarPrimero(int n, Lista lista){
-    Lista nodo = crearNodo(n);
-    if (lista==NULL){
+Lista insertarPrimero(int num, Lista lista){
+    Lista nodo = crearNodo(num);
+    if (lista == NULL) {
         lista = nodo;
         return nodo;
     }
@@ -27,8 +28,8 @@ Lista insertarPrimero(int n, Lista lista){
     return lista;
 }
 
-Lista insertarUltimo(int n, Lista lista){
-    Lista nodo = crearNodo(n);
+Lista insertarUltimo(int num, Lista lista){
+    Lista nodo = crearNodo(num);
     Lista puntero = lista;
     if (lista == NULL) {
         lista = nodo;
@@ -41,16 +42,17 @@ Lista insertarUltimo(int n, Lista lista){
     return lista;
 }
 
-Lista leerArchivo(char nombreArchivo[50]){
-    FILE *archivo = fopen(nombreArchivo, "rb");
-    int n;
+Lista leerArchivo(char Archivo[50]){
+    strcat(Archivo, ".txt"); //Agregar el .txt al nombre
+    FILE *archivo = fopen(Archivo, "rb");
+    int num;
     Lista lista = NULL;
     if (archivo == NULL) {
-        printf("Error: Archivo no encontrado");
-        exit(1);
+        printf("Archivo no existente");
+        exit(EXIT_FAILURE);
     }
-    while (fscanf(archivo, "%d", &n) == 1) {
-        lista = insertarUltimo(n,lista);
+    while (fscanf(archivo, "%d", &num) == 1) {
+        lista = insertarUltimo(num, lista);
     }
     fclose(archivo);
     return lista;
@@ -58,14 +60,63 @@ Lista leerArchivo(char nombreArchivo[50]){
 
 void imprimirLista(Lista lista){
     if (lista == NULL) {
-        printf("----");
+        printf("--");
     } else {
         Lista puntero = lista;
         while (puntero != NULL) {
-            printf("%d ", puntero->info);
+            printf("%d, ", puntero->info);
             puntero = puntero->sig;
         }
     }
+}
+
+Lista invertirLista(Lista lista){
+    if (lista == NULL) {
+        return NULL;
+    }
+    Lista Linvertida = NULL;
+    Lista puntero = lista;
+    while (puntero != NULL) {
+        Linvertida = insertarPrimero(puntero->info, Linvertida);
+        puntero = puntero->sig;
+    }
+    return Linvertida;
+}
+//Esta estuvo dificil
+Lista insertarOrdenado(int num, Lista lista) {
+    Lista nodo = crearNodo(num);
+    if (lista == NULL || num < lista->info) {
+        nodo->sig = lista;
+        return nodo;
+    }
+    Lista puntero = lista;
+    while (puntero->sig != NULL && puntero->sig->info < num) {
+        puntero = puntero->sig;
+    }
+    nodo->sig = puntero->sig;
+    puntero->sig = nodo;
+    return lista;
+}
+
+Lista ordenarLista(Lista lista) {
+    Lista ordenada = NULL;
+    Lista puntero = lista;
+    while (puntero != NULL) {
+        ordenada = insertarOrdenado(puntero->info, ordenada);
+        puntero = puntero->sig;
+    }
+    return ordenada;
+}
+
+bool perteneceLista(int dato, Lista lista){
+    Lista puntero = lista;
+    while (puntero != NULL){
+        if (puntero->info == dato) {
+            return true;
+        }
+        puntero = puntero->sig;
+    }
+    return false;
 }
 
 int largoLista(Lista lista){
@@ -127,67 +178,12 @@ int mayorLista(Lista lista){
     return mayor;
 }
 
-Lista invertirLista(Lista lista){
-    if (lista == NULL) {
-        printf("Lista vacia");
-        return NULL;
-    }
-    Lista invertida = NULL;
-    Lista puntero = lista;
-    while (puntero != NULL) {
-        invertida = insertarPrimero(puntero->info, invertida);
-        puntero = puntero->sig;
-    }
-    return invertida;
-}
-
-Lista insertarOrdenado(int n, Lista lista) {
-    Lista nodo = crearNodo(n);
-    if (lista == NULL || n < lista->info) {
-        nodo->sig = lista;
-        return nodo;
-    }
-    Lista puntero = lista;
-    while (puntero->sig != NULL && puntero->sig->info < n) {
-        puntero = puntero->sig;
-    }
-    nodo->sig = puntero->sig;
-    puntero->sig = nodo;
-    return lista;
-}
-
-Lista ordenarLista(Lista lista) {
-    Lista ordenada = NULL;
-    Lista puntero = lista;
-    while (puntero != NULL) {
-        ordenada = insertarOrdenado(puntero->info, ordenada);
-        puntero = puntero->sig;
-    }
-    return ordenada;
-}
-
-
-bool perteneceLista(int dato, Lista lista){
-    Lista puntero = lista;
-    while (puntero != NULL){
-        if (puntero->info == dato) {
-            return true;
-        }
-        puntero = puntero->sig;
-    }
-    return false;
-}
-
 Lista unionLista(Lista lista1, Lista lista2){
-    if (lista1 == NULL || lista2 == NULL){
-        printf("---Una o ambas listas vacias---");
-        return NULL;
-    }
     Lista unida = lista1;
     Lista puntero = lista2;
     while (puntero != NULL) {
-        if (!perteneceLista(puntero->info,lista1)){
-            unida = insertarPrimero(puntero->info,unida);
+        if (!perteneceLista(puntero->info, lista1)){
+            unida = insertarPrimero(puntero->info, unida);
         }
         puntero = puntero->sig;
     }
@@ -195,15 +191,15 @@ Lista unionLista(Lista lista1, Lista lista2){
 }
 
 Lista interseccionLista(Lista lista1, Lista lista2){
-    Lista interseccion = NULL;
+    Lista Linterseccion = NULL;
     Lista puntero = lista1;
     while (puntero != NULL) {
-        if (perteneceLista(puntero->info,lista2)){
-            interseccion = insertarPrimero(puntero->info,interseccion);
+        if (perteneceLista(puntero->info, lista2)){
+            Linterseccion = insertarPrimero(puntero->info, Linterseccion);
         }
         puntero = puntero->sig;
     }
-    return interseccion;
+    return Linterseccion;
 }
 
 Lista restaLista(Lista lista1, Lista lista2){
@@ -219,30 +215,31 @@ Lista restaLista(Lista lista1, Lista lista2){
 }
 
 int main(){
-    char nom_archiv[50];
+    char Archivo[50];
 
-    printf("Ingrese el nombre del primer archivo: ");
-    scanf("%s",nom_archiv);
-    Lista lista1 = leerArchivo(nom_archiv);
+    printf("Nombre archivo 1: ");
+    scanf("%s", Archivo);
+    Lista lista1 = leerArchivo(Archivo);
 
-    printf("Ingrese el nombre del segundo archivo: ");
-    scanf("%s",nom_archiv);
-    Lista lista2 = leerArchivo(nom_archiv);
+    printf("Nombre archivo 2: ");
+    scanf("%s", Archivo);
+    Lista lista2 = leerArchivo(Archivo);
 
-    printf("\n\nLista 1: ");
+    printf("\num\nLista archivo 1: ");
     imprimirLista(lista1);
     printf("\nEl largo es: %d", largoLista(lista1));
     printf("\nLa suma es: %d", sumaLista(lista1));
     printf("\nEl menor es: %d", menorLista(lista1));
     printf("\nEl mayor es: %d", mayorLista(lista1));
-    printf("\nLista invertida: ");
+    printf("\nLista Linvertida: ");
+
     lista1 = invertirLista(lista1);
     imprimirLista(lista1);
     printf("\nLista ordenada: ");
     lista1 = ordenarLista(lista1);
     imprimirLista(lista1);
 
-    printf("\n\nLista 2: ");
+    printf("\n\nLista archivo 2: ");
     imprimirLista(lista2);
     printf("\nEl largo es: %d", largoLista(lista2));
     printf("\nLa suma es: %d", sumaLista(lista2));
@@ -255,25 +252,33 @@ int main(){
     lista2 = ordenarLista(lista2);
     imprimirLista(lista2);
 
-    Lista unida = unionLista(lista1,lista2);
-    printf("\n\nInion listas: ");
+    Lista unida = unionLista(lista1, lista2);
+    printf("\n\nUnión listas: ");
     imprimirLista(unida);
-    printf("\nUnion ordenada: ");
+    printf("\nUnión ordenada: ");
     unida = ordenarLista(unida);
     imprimirLista(unida);
     
-    Lista interseccion = interseccionLista(lista1,lista2);
-    printf("\n\nInterseccion listas: ");
+    Lista interseccion = interseccionLista(lista1, lista2);
+    printf("\n\nIntersección listas: ");
     imprimirLista(interseccion);
-    printf("\nInterseccion ordenada: ");
+    printf("\nIntersección ordenada: ");
     interseccion = ordenarLista(interseccion);
     imprimirLista(interseccion);
 
-    Lista resta = restaLista(lista1,lista2);
-    printf("\n\nResta listas1: ");
+    Lista resta = restaLista(lista1, lista2);
+    printf("\n\nResta listas 1: ");
     imprimirLista(resta);
     printf("\nResta ordenada: ");
     resta = ordenarLista(resta);
     imprimirLista(resta);
+
+    lista1 = borrarLista(lista1);
+    lista2 = borrarLista(lista2);
+    unida = borrarLista(unida);
+    interseccion = borrarLista(interseccion);
+    resta = borrarLista(resta);
+
     return 0;
 }
+

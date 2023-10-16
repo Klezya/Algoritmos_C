@@ -104,30 +104,32 @@ Lista borraLista(Lista lista) {
     return NULL;
 }
 
-int menorLista(Lista lista) {
-    int menor = lista->info;
-    if (lista == NULL) {
+int menorLista(Lista lista){
+    Lista temp = lista;
+    if (temp == NULL) {
         return 0;
     }
-    while (lista->sig != NULL) {
-        if (lista->info > lista->sig->info) {
-            menor = lista->sig->info;
+    int menor = temp->info;
+    while (temp != NULL) {
+        if (temp->info < menor) {
+            menor = temp->info;
         }
-        lista = lista->sig;
+        temp = temp->sig;
     }
     return menor;
 }
 
-int mayorLista(Lista lista) {
-    int mayor = lista->info;
-    if (lista == NULL) {
+int mayorLista(Lista lista){
+    Lista temp = lista;
+    if (temp == NULL) {
         return 0;
     }
-    while (lista->sig != NULL) {
-        if (lista->info < lista->sig->info) {
-            mayor = lista->sig->info;
+    int mayor = temp->info;
+    while (temp != NULL) {
+        if (temp->info > mayor) {
+            mayor = temp->info;
         }
-        lista = lista->sig;
+        temp = temp->sig;
     }
     return mayor;
 }
