@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
 #define infinito 2147000000
 
 typedef int **Matriz;
@@ -108,12 +112,14 @@ void imprimeMatrizGrafo(Matriz Grafo, int n)
         printf("\n");
     }
 }
-void reseteaVisitados(ArregloBool Visitados, int n)
+ArregloBool reseteaVisitados(ArregloBool Visitados, int n)
 {
     int i;
 
     for (i=0; i<n; i++)
         Visitados[i] = false;
+    
+    
 }
 void Profundidad(Matriz Grafo, int n, ArregloBool Visitados, int nodo)
 {

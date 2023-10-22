@@ -12,7 +12,16 @@ int main() {
     scanf("%s", &nombreArchivo);
     printf("\n");
     Matriz grafo = leerArchivo(nombreArchivo, &cantNodos, &cantArcos, &tipoGrafo);
-    imprimirMatriz(grafo,cantNodos);
-    imprimirAdyacentes(grafo,cantNodos,tipoGrafo);
+    ArregloBool visitados = crearVisitados(cantNodos);
+
+    
+
+    /* Recorrido profundidad todos los nodos
+    for (int i = 0; i < cantNodos; i++) {
+        printf("Recorrido nodo %d:",i);
+        imprimirProfundidad(grafo,visitados,cantNodos,i);
+        resetearVisitados(visitados,cantNodos);
+        printf("\n");
+    }*/
     return 0;
 }

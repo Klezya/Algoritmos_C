@@ -7,6 +7,7 @@
 
 typedef int **Matriz;
 typedef int *Arreglo;
+typedef bool *ArregloBool;
 
 
 Matriz crearMatriz(int n){
@@ -21,6 +22,14 @@ Matriz crearMatriz(int n){
             printf("Error memory allocation 2");
             exit(0);
         }
+    }
+    return aux;
+}
+ArregloBool crearVisitados(int n){
+    ArregloBool aux = calloc(n, sizeof(bool));
+    if (aux == NULL) {
+        printf("Error memory allocation");
+        exit(0);
     }
     return aux;
 }
@@ -159,5 +168,46 @@ void imprimirAdyacentes(Matriz grafo, int n, int tipo){
         //Diferenciacion end
         count = 0;
         
+    }
+}
+
+void imprimirEntradas(Matriz grafo, int n, int tipo){
+    if (tipo == 2) {
+        printf("\nEl grafo No Es Dirigido\n");
+        return;
+    }
+    int count = 0;
+    for (int i=0; i<n; i++) {
+        printf("\nNodo %d :\n", i);
+        printf("Nodos antecesores:");
+        for (int j = 0; j < n; j++) {
+            if (grafo[j][i] != 0) {
+                printf(" %d", j);
+                count++;
+            }
+        }
+        if (count == 0) {
+            printf(" ---");
+        }
+        printf("\nGrado de entrada: %d\n", count);
+        count = 0; 
+    }
+}
+
+void imprimirProfundidad(Matriz grafo,ArregloBool visitados,int n, int nodo){
+    int i;
+    visitados[nodo] = true;
+    printf(" %3d",nodo);
+    i = 0;
+    while (i < n) {
+        if (grafo[nodo][i] != 0 && !visitados[i]) {
+            imprimirProfundidad(grafo,visitados,n,i);
+        }
+        i++;
+    }
+}
+void resetearVisitados(ArregloBool visitados, int n){
+    for (int i = 0; i < n; i++) {
+        visitados[i] = false;
     }
 }
