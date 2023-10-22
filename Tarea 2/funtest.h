@@ -26,7 +26,7 @@ Matriz crearMatriz(int n){
 }
 void imprimirMatriz(Matriz grafo, int n){
     int i, j;
-
+    printf("\nMatriz de costos: \n\n");
     printf("     ");
 
     for (i=0; i<n; i++)
@@ -96,5 +96,68 @@ void arcoMayorCosto(Matriz grafo, int n){
         printf("\nEl arco entre los nodos %d y %d es el de mayor coste con: %d\n",nodo1,nodo2,mayor);
     } else {
         printf("\nEl arco (%d,%d) es el de mayor coste con: %d\n",nodo1,nodo2,mayor);
+    }
+}
+
+void imprimirMatrizComplemento(Matriz grafo, int n){
+    int i, j;
+    int uno = 1;
+    int cero = 0;
+    printf("\nMatriz complemento: \n\n");
+    printf("     ");
+
+    for (i=0; i<n; i++)
+        printf("%4i", i);
+
+    printf("\n    ");
+
+    for (i=0; i<n; i++)
+        printf("----");
+
+    printf("--\n");
+
+    for (i=0; i<n; i++)
+    {
+        printf("%3i |", i);
+        for (j=0; j<n; j++)
+            if (grafo[i][j] == 0) {
+                printf("%4i", uno);
+            } else {
+                printf("%4i", cero);
+            }
+        printf("\n");
+    }
+}
+//Funcion para adyacentes y sucesores
+void imprimirAdyacentes(Matriz grafo, int n, int tipo){
+    int count = 0;
+
+    for (int i=0; i<n; i++) {
+        printf("\nNodo %d :\n", i);
+        //Diferenciacion tipos de grafos
+        if (tipo == 1){
+            printf("Nodos sucesores:");
+        } else {
+            printf("Nodos adyacentes:");
+        }
+        //Diferenciacion end
+        for (int j = 0; j < n; j++) {
+            if (grafo[i][j] != 0) {
+                printf(" %d", j);
+                count++;
+            }
+        }
+        if (count == 0) {
+            printf(" ---");
+        }
+        //Diferenciacion de tipos de grafo
+        if (tipo == 1) {
+            printf("\nGrado de salida: %d\n", count);
+        } else {
+        printf("\nGrado: %d\n", count);
+        }
+        //Diferenciacion end
+        count = 0;
+        
     }
 }

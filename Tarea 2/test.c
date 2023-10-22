@@ -13,6 +13,6 @@ int main() {
     printf("\n");
     Matriz grafo = leerArchivo(nombreArchivo, &cantNodos, &cantArcos, &tipoGrafo);
     imprimirMatriz(grafo,cantNodos);
-    arcoMayorCosto(grafo, cantNodos);
+    imprimirAdyacentes(grafo,cantNodos,tipoGrafo);
     return 0;
 }
