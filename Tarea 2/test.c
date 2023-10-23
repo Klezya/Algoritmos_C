@@ -14,8 +14,7 @@ int main() {
     Matriz grafo = leerArchivo(nombreArchivo, &cantNodos, &cantArcos, &tipoGrafo);
     ArregloBool visitados = crearVisitados(cantNodos);
 
-    
-
+    imprimirAmplitud(grafo,cantNodos,visitados,0);
     /* Recorrido profundidad todos los nodos
     for (int i = 0; i < cantNodos; i++) {
         printf("Recorrido nodo %d:",i);

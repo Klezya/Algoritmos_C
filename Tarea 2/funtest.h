@@ -25,6 +25,7 @@ Matriz crearMatriz(int n){
     }
     return aux;
 }
+
 ArregloBool crearVisitados(int n){
     ArregloBool aux = calloc(n, sizeof(bool));
     if (aux == NULL) {
@@ -33,6 +34,16 @@ ArregloBool crearVisitados(int n){
     }
     return aux;
 }
+
+Arreglo crearArreglo(int n){
+    Arreglo aux = calloc(n, sizeof(int));
+    if (aux == NULL) {
+        printf("Error memory allocation");
+        exit(0);
+    }
+    return aux;
+}
+
 void imprimirMatriz(Matriz grafo, int n){
     int i, j;
     printf("\nMatriz de costos: \n\n");
@@ -88,7 +99,7 @@ Matriz leerArchivo(char nombre[50], int *pn, int *pa, int *pt){
 
     return grafo;
 }
-
+//Funcion que entrega el arco de mayor costo del grafo
 void arcoMayorCosto(Matriz grafo, int n){
     int mayor, nodo1, nodo2;
     mayor = grafo[0][0];
@@ -107,7 +118,7 @@ void arcoMayorCosto(Matriz grafo, int n){
         printf("\nEl arco (%d,%d) es el de mayor coste con: %d\n",nodo1,nodo2,mayor);
     }
 }
-
+//Funcion que imprime la matriz del grafo complemento
 void imprimirMatrizComplemento(Matriz grafo, int n){
     int i, j;
     int uno = 1;
@@ -170,7 +181,7 @@ void imprimirAdyacentes(Matriz grafo, int n, int tipo){
         
     }
 }
-
+//Funcion que imprime los nodos antecesores y el grado de entrada de cada nodo
 void imprimirEntradas(Matriz grafo, int n, int tipo){
     if (tipo == 2) {
         printf("\nEl grafo No Es Dirigido\n");
@@ -193,21 +204,53 @@ void imprimirEntradas(Matriz grafo, int n, int tipo){
         count = 0; 
     }
 }
-
+//Funcion que imprime el recorrido en profundidad del grafo
 void imprimirProfundidad(Matriz grafo,ArregloBool visitados,int n, int nodo){
-    int i;
     visitados[nodo] = true;
     printf(" %3d",nodo);
-    i = 0;
-    while (i < n) {
+    for (int i = 0; i < n; i++) {
         if (grafo[nodo][i] != 0 && !visitados[i]) {
             imprimirProfundidad(grafo,visitados,n,i);
         }
-        i++;
     }
 }
+//Reinicia la lista de nodos visitados
 void resetearVisitados(ArregloBool visitados, int n){
     for (int i = 0; i < n; i++) {
         visitados[i] = false;
     }
+}
+bool estaEnFila(Arreglo Fila, int n, int nodo) {
+    for (int i=0; i<n; i++) {
+        if (Fila[i] == nodo)
+            return true;
+    }
+    return false;
+}
+//Funcion que recorre en amplitud un grafo
+void imprimirAmplitud(Matriz grafo, int n, ArregloBool visitados, int nodo0){
+    Arreglo fila = crearArreglo(n);
+    resetearVisitados(visitados, n);
+    int pos=0, largo=0, actual=0;
+
+    fila[pos] = nodo0;
+    largo++;
+    while (pos < largo) {
+        actual = fila[pos];
+        pos++;
+        if (!visitados[actual]){
+            visitados[actual] = true;
+            printf(" %d", actual);
+            for (int i = 0; i < n; i++) {
+                if (grafo[actual][i] != 0 && !visitados[i] && !estaEnFila(fila, n, i)) {
+                    fila[largo] = i;
+                    largo++;
+                }
+                
+            }
+            
+        }
+        
+    }
+    
 }
