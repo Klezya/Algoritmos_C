@@ -14,8 +14,18 @@ int main() {
     Matriz grafo = leerArchivo(nombreArchivo, &cantNodos, &cantArcos, &tipoGrafo);
     ArregloBool visitados = crearVisitados(cantNodos);
 
-    imprimirAmplitud(grafo,cantNodos,visitados,0);
-    /* Recorrido profundidad todos los nodos
+    imprimirMatriz(grafo, cantNodos);
+
+    analizarKregular(grafo, cantNodos);
+
+    /* Recorrido de amplitud:
+    for (int i = 0; i < cantNodos; i++) {
+        printf("\nRecorrido nodo %d :", i);
+        imprimirAmplitud(grafo,cantNodos,visitados,i);
+        printf("\n");
+    }*/
+
+    /* Recorrido profundidad todos los nodos:
     for (int i = 0; i < cantNodos; i++) {
         printf("Recorrido nodo %d:",i);
         imprimirProfundidad(grafo,visitados,cantNodos,i);

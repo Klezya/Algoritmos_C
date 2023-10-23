@@ -41,6 +41,10 @@ Arreglo crearArreglo(int n){
         printf("Error memory allocation");
         exit(0);
     }
+    for (int i = 0; i < n; i++) {
+        aux[i] = -1;
+    }
+    
     return aux;
 }
 
@@ -231,12 +235,12 @@ bool estaEnFila(Arreglo Fila, int n, int nodo) {
 void imprimirAmplitud(Matriz grafo, int n, ArregloBool visitados, int nodo0){
     Arreglo fila = crearArreglo(n);
     resetearVisitados(visitados, n);
-    int pos=0, largo=0, actual=0;
+    int pos=0, largo=0;
 
     fila[pos] = nodo0;
     largo++;
     while (pos < largo) {
-        actual = fila[pos];
+        int actual = fila[pos];
         pos++;
         if (!visitados[actual]){
             visitados[actual] = true;
@@ -246,11 +250,48 @@ void imprimirAmplitud(Matriz grafo, int n, ArregloBool visitados, int nodo0){
                     fila[largo] = i;
                     largo++;
                 }
-                
             }
-            
         }
-        
     }
+}
+//Funcion para saber si el grafo es completo o no
+void analizarCompleto(Matriz grafo, int n){
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (grafo[i][j] == 0 && i != j) {//Restriccion, un grafo puede ser completo aun si el nodo 0 no es adyacente a si mismo
+                printf("\nEl grafo no es completo, ya que el nodo [%d] no es adyacente al nodo [%d]", i, j);
+                return;
+            }
+        }
+    }
+    printf("\nEl grafo es completo");
+}
+//Funcion para analizar si el grafo es k regular
+void analizarKregular(Matriz grafo,int n){
+    Arreglo gradosNodos = crearArreglo(n);
+    for (int i = 0; i < n; i++) {
+        int count = 0;
+        for (int j = 0; j < n; j++) {
+            if (grafo[i][j] != 0) {
+                count++;
+            }
+        }
+        gradosNodos[i] = count;
+    }
+    int primero = gradosNodos[0];
+    for (int i = 0; i < n; i++) {
+        if (gradosNodos[i] != primero) {
+            printf("\nEl grafo no es k-regular");
+            return;
+        }
+    }
+    printf("\nEl grafo es K-regular con k = %d", gradosNodos[0]);   
+}
+//Funcion que imprime si el grafo es conexo o disconexo
+void esConexo(){
+
+}
+//funcion Dijstra
+void Dijstra(){
     
 }
