@@ -14,10 +14,24 @@ int main() {
     Matriz grafo = leerArchivo(nombreArchivo, &cantNodos, &cantArcos, &tipoGrafo);
     ArregloBool visitados = crearVisitados(cantNodos);
 
+    /*Resto de funciones:
+    
+    
+    
+    
+    
+    */
+
+
+
+    /*Dijkstra en cada nodo:
     imprimirMatriz(grafo, cantNodos);
-
-    analizarKregular(grafo, cantNodos);
-
+    for (int i = 0; i < cantNodos; i++) {
+        Dijkstra(grafo,cantNodos,i);
+        printf("\n");
+    }
+    */
+    
     /* Recorrido de amplitud:
     for (int i = 0; i < cantNodos; i++) {
         printf("\nRecorrido nodo %d :", i);
@@ -32,5 +46,6 @@ int main() {
         resetearVisitados(visitados,cantNodos);
         printf("\n");
     }*/
+
     return 0;
 }

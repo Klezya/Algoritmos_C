@@ -32,6 +32,9 @@ ArregloBool crearVisitados(int n){
         printf("Error memory allocation");
         exit(0);
     }
+    for (int i = 0; i < n; i++) {
+        aux[i] = false;
+    }
     return aux;
 }
 
@@ -218,6 +221,15 @@ void imprimirProfundidad(Matriz grafo,ArregloBool visitados,int n, int nodo){
         }
     }
 }
+//Profundidad sin imprimir
+void profundidad(Matriz grafo,ArregloBool visitados,int n, int nodo){
+    visitados[nodo] = true;
+    for (int i = 0; i < n; i++) {
+        if (grafo[nodo][i] != 0 && !visitados[i]) {
+            profundidad(grafo,visitados,n,i);
+        }
+    }
+}
 //Reinicia la lista de nodos visitados
 void resetearVisitados(ArregloBool visitados, int n){
     for (int i = 0; i < n; i++) {
@@ -288,10 +300,118 @@ void analizarKregular(Matriz grafo,int n){
     printf("\nEl grafo es K-regular con k = %d", gradosNodos[0]);   
 }
 //Funcion que imprime si el grafo es conexo o disconexo
-void esConexo(){
+void esConexo(Matriz grafo, int n){
+    ArregloBool visitados = crearVisitados(n);
+    int count = 0;
+    profundidad(grafo, visitados, n, 0);
 
+    for (int j = 0; j < n; j++) {
+        if (!visitados[j]){
+            count++;
+        }
+    }
+    if (count == 0) {
+        printf("\nEl grafo es completamente conexo");
+    } else if (count != 0) {
+        printf("\nEl grafo es desconexo en %d nodos, con %d nodos conexos", count, n-count);
+    }
 }
-//funcion Dijstra
-void Dijstra(){
+
+//Funcion devuelve el numero de nodos sin visitar
+int numeroNodosSinVisitar(ArregloBool Visitados, int n) {
+    int count = 0;
+    for (int i=0; i<n; i++) {
+        if (!Visitados[i])
+            count++;
+    }
+    return count;
+}
+
+//Funcion imprime caminos Dijsktra
+void imprimeCaminos(Arreglo Predecesor, Arreglo Costo, ArregloBool Visitados, int n, int v0)
+{
+    Arreglo Camino;
+    int i, j, nodo;
+
+    Camino = crearArreglo(n);
+    for (i=0; i<n; i++)
+    {
+        if (i != v0)
+        {
+            if (Costo[i] == inf)
+                printf("\nDe %2i a %2i (costo: --): No existe Camino", v0, i);
+            else
+            {
+                Camino[0] = i;
+                nodo = Predecesor[i];
+                for (j=1; nodo!=v0; j++)
+                {
+                    Camino[j] = nodo;
+                    nodo = Predecesor[nodo];
+                }
+                Camino[j] = nodo;
+                printf("\nDe %2i a %2i (costo: %2i):", v0, i, Costo[i]);
+                for (; j>=0; j--)
+                    printf(" %i", Camino[j]);
+            }
+        }
+    }
+    free(Camino);
+}
+
+//Funcion que entrega el numero del nodo de menor coste sin visitar
+int nodoDeMinimoCostoSinVisitar(Arreglo Costo, ArregloBool Visitados, int n) {
+    int i, nodo, minimo;
+    bool esElPrimero = true;
+    for (i = 0; i < n; i++)
+        if (!Visitados[i]) {
+            if (esElPrimero) {
+                minimo = Costo[i];
+                nodo = i;
+                esElPrimero = false;
+            } else {
+                if (Costo[i] < minimo) {
+                    minimo = Costo[i];
+                    nodo = i;
+                }
+            }
+        }
+    return nodo;
+}
+void Dijkstra(Matriz grafo, int n, int nodo0){
+    ArregloBool visitados = crearVisitados(n);
+    Arreglo nodoAnterior = crearArreglo(n);
+    Arreglo nodoCoste = crearArreglo(n);
+
+    visitados[nodo0] = true;
+
+    for (int i = 0; i < n; i++) {
+        nodoCoste[i] = inf;
+        nodoAnterior[i] = -1;
+    }
+    for (int i = 0; i < n; i++) {
+        if (grafo[nodo0][i] != 0) {
+            nodoCoste[i] = grafo[nodo0][i];
+            nodoAnterior[i] = nodo0;
+        }
+    }
     
+    while (numeroNodosSinVisitar(visitados, n) > 0) {
+        int actual = nodoDeMinimoCostoSinVisitar(nodoCoste, visitados, n);
+        visitados[actual] = true;
+        for (int i = 0; i < n; i++) {
+            if (grafo[actual][i] != 0 && !visitados[i]) {
+                int costeActual = grafo[actual][i] + nodoCoste[actual];
+                if (costeActual < nodoCoste[i]) {
+                    nodoCoste[i] = costeActual;
+                    nodoAnterior[i] = actual;
+                }
+            }
+        } 
+    }
+    imprimeCaminos(nodoAnterior,nodoCoste,visitados,n,nodo0);
+    free(visitados);
+    free(nodoCoste);
+    free(nodoAnterior);
+    return;
 }
