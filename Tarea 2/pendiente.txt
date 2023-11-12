@@ -1,0 +1,46 @@
+Pendiente:
+
+II.1 Funcionalidades solicitadas para un grafo no dirigido:
+
+
+II.2 Funcionalidades solicitadas para un grafo dirigido:  
+
+
+
+
+Working On:
+
+II.1 Funcionalidades solicitadas para un grafo no dirigido:
+
+
+II.2 Funcionalidades solicitadas para un grafo dirigido:
+
+
+
+Listas:
+
+II.1 Funcionalidades solicitadas para un grafo no dirigido:
+- Imprimir la matriz de costos del grafo.
+- Imprimir el arco de mayor costo y su costo.
+- Imprimir la matriz de su grafo complemento.
+- Imprimir los adyacentes y grado para cada nodo del grafo.
+- Imprimir el recorrido en profundidad desde cada nodo.
+- Imprimir el recorrido en amplitud desde cada nodo.
+- Imprimir si se trata de un grafo completo o no.
+- Imprimir si se trata de un grafo k-regular o no. Si es k-regular debes imprimir el valor de k.
+- Imprimir  si  se  trata  de  un  grafo  conexo  o  desconexo.  Si  es  desconexo  debe  indicar  además  el 
+  número de componentes conexas. 
+- Imprimir los caminos de costo mínimo desde cada nodo (usando Dijkstra) a todos los otros. Si no 
+  existe un camino el programa debe imprimir un mensaje. 
+
+
+ 
+II.2 Funcionalidades solicitadas para un grafo dirigido:
+- Imprimir la matriz de costos del grafo.
+- Imprimir el arco de mayor costo y su costo. 
+- Imprimir los sucesores y grado de salida para cada nodo del grafo. 
+- Imprimir los antecesores y grado de entrada para cada nodo del grafo.
+- Imprimir el recorrido en profundidad desde cada nodo. 
+- Imprimir el recorrido en amplitud desde cada nodo.
+- Imprimir los caminos de costo mínimo desde cada nodo (usando Dijkstra) a todos los otros. Si no 
+  existe un camino el programa debe imprimir un mensaje. 
