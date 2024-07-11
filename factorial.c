@@ -1,12 +1,10 @@
 #include <stdio.h>
 
 int factorial(int num) {
-    int result;
     if (num == 0) {
         return 1;
     }
-    result = num * factorial(num-1);
-    return result;
+    return num * factorial(num-1);
 }
 
 int factorial2(int num) {
